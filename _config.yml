@@ -1,0 +1,15 @@
+title: "tokenz: a postmortem"
+description: "How a small team ran LLM agents to build bots for UNSW Battlecode 2026's dragons game: the approach, the infrastructure, the timeline, and what we learned."
+baseurl: "/tokenz-postmortem"
+url: "https://battlecode-underthec.github.io"
+permalink: /:year/:month/:day/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+plugins:
+  - jekyll-feed
+links:
+  arena: "https://battlecode-underthec.github.io/tokenz-arena-pages/"
+  github: "https://github.com/Battlecode-UnderTheC"
+exclude: [README.md, LICENSE]
