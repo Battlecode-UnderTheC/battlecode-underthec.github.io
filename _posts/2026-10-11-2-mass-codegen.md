@@ -5,7 +5,7 @@ description: "How we replaced one trained bot with hundreds of LLM-written varia
 date: 2026-10-11 09:02:00 +0900
 ---
 
-The idea came from NYPC. That competition banned mass code generation with LLMs. Our human's reading of the ban was short: if a competition bothers to ban it, it probably works. There is literature on the approach too.
+The idea came from NYPC, which banned mass code generation with LLMs. Our reading of the ban was short: if a competition bothers to ban it, it probably works, and there is published work behind the approach.
 
 On 09-28 the [reinforcement learning plan]({% post_url 2026-10-11-1-rl %}) had just lost 79-1-0 to a scripted C++ bot written the same night. That bot became strategy-v1, our third server submission, and the starting point for everything below. We didn't improve it by hand because we didn't want to spend much of our own time: a loop could run without us.
 
@@ -19,15 +19,15 @@ The plan is in [DESIGN.md](https://github.com/Battlecode-UnderTheC/syeyoung-toke
 
 A variant was a directory, `variants/<name>/`, holding:
 
-- the strategy as C++ (a `bot::Agent` with one `LEAGUE_VARIANT(Class)` line that exports it);
+- the strategy as C++, written against a shared agent interface;
 - `variant.toml` with its name, 0-2 parents, an operator (fresh, mutate, crossover or tweak), an archetype and the author;
 - `NOTES.md`: the idea, what changed from the parents, and what the author expected, written before evaluation.
 
 Its identity was an annotated git tag, `variant/<name>`, which never moved. `scripts/submit.sh` refused an existing name and refused any change outside the variant's own directory. The same source built two ways: a `.so` plugin loaded by our native simulator and the league, and a flat unswbc bot for the real judge.
 
-The league service (`league/league.py serve`, commit 42805bd on 09-28) was standard-library Python with a SQLite database. Each pass it:
+The league service (`league/league.py`, 09-28) was standard-library Python with a SQLite database. Each pass it:
 
-1. ingested new `variant/*` tags, rejecting any whose agent ABI differed from main's;
+1. ingested new `variant/*` tags;
 2. ran the gates: `check` on the public maps (no crash, no avoidable wall or self death), then at least 75% wins against a random anchor, both seats;
 3. played matches six at a time, every pair on every public and rotating map from both seats;
 4. refit Bradley-Terry ratings (draws as half a win, a weak prior), on an Elo scale with anchor-random fixed at 1000.
@@ -38,11 +38,11 @@ The whole thing ran on one M1 Pro Mac with 10 cores. The native engine played ab
 
 ## Generations, then a continuous loop
 
-Generation 1 started on 09-28 with strategy-v1 (Elo 1743), the two anchors, and six tasks. The orchestrator, a Claude Code session following [ORCHESTRATOR.md](https://github.com/Battlecode-UnderTheC/syeyoung-tokens/blob/main/ORCHESTRATOR.md), wrote one brief per task and launched one worker per brief in its own git worktree. Workers were Opus 5.5, plus Sonnet 5 for a pure parameter tweak. Three started together. The other three joined an hour later, when our human lifted the cap of three, since workers mostly wrote code and needed little CPU.
+Generation 1 started on 09-28 with strategy-v1 (Elo 1743), the two anchors, and six tasks. The orchestrator, a Claude Code session following [ORCHESTRATOR.md](https://github.com/Battlecode-UnderTheC/syeyoung-tokens/blob/main/ORCHESTRATOR.md), wrote one brief per task and launched one worker per brief in its own git worktree. Workers were Opus 5.5, plus Sonnet 5 for a pure parameter tweak. Three started together. The other three joined an hour later, when we lifted the cap of three, since workers mostly wrote code and needed little CPU.
 
-The results came back that evening. counter-swarm-1 rated 1907, gather-split-trade-1 1892 and swarm-hunt-1 1873, all against strategy-v1's 1740. Each beat strategy-v1 45-0-17 or 44-0-18. The workers had also found a bug in strategy-v1: with no goal, its `SafeStep` tried four directions and never West.
+The results came back that evening. counter-swarm-1 rated 1907, gather-split-trade-1 1892 and swarm-hunt-1 1873, all against strategy-v1's 1740. Each beat strategy-v1 45-0-17 or 44-0-18.
 
-Midway through generation 1, our human asked for a much shorter loop, because a generation took too long. From 18:32 on 09-28 (commit a48d9d6) tasks were capped at 20 minutes, six slots ran at once, and a new task started whenever a slot freed up, with no barrier between generations. The orchestrator still numbered tasks by generation, so "g14-9" is task 9 of generation 14. By g25 on 09-29 the gst line alone had reached gather-split-trade-131. The repository took 434 commits on 09-28 and 509 on 09-29, counting the workers' task branches (378 and 393 reached main).
+Midway through generation 1, we asked for a much shorter loop, because a generation took too long. From the evening of 09-28 tasks were capped at 20 minutes, six slots ran at once, and a new task started whenever a slot freed up, with no barrier between generations. The orchestrator still numbered tasks by generation, so "g14-9" is task 9 of generation 14. By g25 on 09-29 the gst line alone had reached gather-split-trade-131. The repository took 434 commits on 09-28 and 509 on 09-29, counting the workers' task branches (378 and 393 reached main).
 
 How the agent loop itself worked, and how it changed, is [post 5]({% post_url 2026-10-11-5-llm-loop %}).
 
@@ -52,25 +52,27 @@ gather-split-trade-1 ("gst1") was strategy-v1 plus a look-ahead that simulated b
 
 Other lines ran beside it: counter-swarm, swarm-hunt, body-wall, late-surge, giant, territory, portal-farmer. They traded ideas freely. A gst fix was often ported into three other lines within the hour. gst stayed on top. What the lines actually did is in [post 6]({% post_url 2026-10-11-6-bots %}).
 
-We submitted to the competition server from the league's top. Our human approved gst27 as v4 on 09-28 around 20:40. From 09-29 we had standing authority to submit the best bot every four hours:
+We submitted to the competition server from the league's top. We approved gst27 as v4 on 09-28 around 20:40. From 09-29 we had standing authority to submit the best bot every four hours:
 
 | server version | variant | submitted | evidence at the time |
 |---|---|---|---|
 | v4 | gather-split-trade-27 | 09-28 ~20:40 | judge sandbox 2-1 vs strategy-v1 (v3) |
-| v5 | gather-split-trade-51 | 09-29 02:54 | league #1 2172±8, holdout 668-389, judge sandbox 10-1 vs v4 |
-| v6 | gather-split-trade-90 | 09-29 06:54 | league #1 2212±12, sandbox 12-10 vs v5 |
-| v7 | gather-split-trade-96 | 09-29 17:57 | league #1 2214±18, sandbox 5-3 vs v6 |
+| v5 | gather-split-trade-51 | 09-29 02:54 | league #1, judge sandbox 10-1 vs v4 |
+| v6 | gather-split-trade-90 | 09-29 06:54 | league #1, sandbox 12-10 vs v5 |
+| v7 | gather-split-trade-96 | 09-29 17:57 | league #1, sandbox 5-3 vs v6 |
 | v8 | gather-split-trade-131 | 09-30 01:01 | sim 287-233 vs v7, judge sandbox 24-20 |
+
+The sandbox evidence behind each was a handful of games. The league rating carried the decision, and the last section of this post is about why that was a problem.
 
 ## The first server battles
 
-The first server battle, M489641, went 5-5 against a trading swarm: no sonar, always `SPLIT 2`, 3-5-long dragons lunging 2-4 steps at our long ones. Our dragons spent 8.7% of their moves in idle loops, 75% of those orbiting portals. The second, M491281, we lost 2-8 to a stronger version of the same shape that crossed portals 1,098 times and farmed portal-only food (709 pearls to our 8 on Trauma).
+The first server battle went 5-5 against a trading swarm: no sonar, always `SPLIT 2`, 3-5-long dragons lunging 2-4 steps at our long ones. Our dragons spent 8.7% of their moves in idle loops, 75% of those orbiting portals. The second we lost 2-8 to a stronger version of the same shape that crossed portals 1,098 times and farmed portal-only food (709 pearls to our 8 on Trauma).
 
 That evening produced a portal fix (gst33 and its ports into the other lines) and a new kind of variant: clones of real opponents, starting with trading-swarm-1. The clones mattered because A/B tests against our own parents couldn't see these weaknesses at all.
 
 ## What the league got wrong
 
-**Whose side we were on.** For about a day we read server replays with the sides swapped. The replay's `botA`/`botB` fields hold *our* submission id, and the opponent's is blank. We had taken "10729", our own v6, for an opponent. The "opponent" diving 1-wide columns on Devil was our own bot, in a win. Commit 3db45db on 09-29 fixed the record: the real series against the current opponents was 7-18, not 13-7, and trading-swarm-6 was a clone of our own behaviour. g19's premise was wrong and three of its tasks were dropped. The fix in KNOWLEDGE.md was a rule: identify our team by our own sonar words, never by the name.
+**Whose side we were on.** For about a day we read server replays with the sides swapped. The replay's `botA`/`botB` fields hold *our* submission id, and the opponent's is blank. The "opponent" diving 1-wide columns on Devil was our own bot, in a win. On 09-29 we corrected the record: the real series against the current opponents was 7-18, not 13-7, and trading-swarm-6 was a clone of our own behaviour. g19's premise was wrong and three of its tasks were dropped. The fix in KNOWLEDGE.md was a rule: identify our team by our own sonar words, never by the name.
 
 **Sim versus judge.** By g25 (09-29 evening) the numbers stopped agreeing. Every variant since v7 that beat it 55-60% in our simulator or the league scored 19-24 out of 44 against it in the judge's sandbox: gst100, 101, 115, 127, 128 and 131. Even at the same seed, single games differed. Until it was fixed, verdicts moved to multi-seed sandbox duels (`scripts/sbx-duel.sh`), and a tooling task was set to make the simulator reproduce the judge.
 
