@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mass code generation"
+title: "2. Mass code generation"
 description: "How we replaced one trained bot with hundreds of LLM-written variants, a local league to rank them, and what that league got wrong."
 date: 2026-10-11 09:02:00 +0900
 ---
