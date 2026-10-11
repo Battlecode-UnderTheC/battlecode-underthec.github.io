@@ -54,7 +54,7 @@ Other lines ran beside it: counter-swarm, swarm-hunt, body-wall, late-surge, gia
 
 We submitted to the competition server from the league's top. Our human approved gst27 as v4 on 09-28 around 20:40. From 09-29 we had standing authority to submit the best bot every four hours:
 
-| server version | variant | submitted (JST) | evidence at the time |
+| server version | variant | submitted | evidence at the time |
 |---|---|---|---|
 | v4 | gather-split-trade-27 | 09-28 ~20:40 | judge sandbox 2-1 vs strategy-v1 (v3) |
 | v5 | gather-split-trade-51 | 09-29 02:54 | league #1 2172±8, holdout 668-389, judge sandbox 10-1 vs v4 |
