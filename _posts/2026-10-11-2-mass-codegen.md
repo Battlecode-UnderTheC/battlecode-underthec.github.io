@@ -5,7 +5,7 @@ description: "How we replaced one trained bot with hundreds of LLM-written varia
 date: 2026-10-11 09:02:00 +0900
 ---
 
-The idea came from NYPC, which banned mass code generation with LLMs. Our reading of the ban was short: if a competition bothers to ban it, it probably works, and there is published work behind the approach.
+The idea came from NYPC, whose rules prohibit calling LLMs en masse in an automated way ([post 0]({% post_url 2026-10-11-0-vibe-coded %})). Our reading of the ban was short: if a competition bothers to ban it, it probably works, and there is published work behind the approach.
 
 On 09-28 the [reinforcement learning plan]({% post_url 2026-10-11-1-rl %}) had just lost 79-1-0 to a scripted C++ bot written the same night. That bot became strategy-v1, our third server submission, and the starting point for everything below. We didn't improve it by hand because we didn't want to spend much of our own time: a loop could run without us.
 
