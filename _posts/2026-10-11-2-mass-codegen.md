@@ -5,9 +5,9 @@ description: "How we replaced one trained bot with hundreds of LLM-written varia
 date: 2026-10-11 09:02:00 +0900
 ---
 
-The idea came from NYPC. That competition banned mass code generation with LLMs. Our human's reading of the ban was short: if a competition bothers to ban it, it probably works.
+The idea came from NYPC. That competition banned mass code generation with LLMs. Our human's reading of the ban was short: if a competition bothers to ban it, it probably works. There is literature on the approach too.
 
-On 09-28 the [reinforcement learning plan]({% post_url 2026-10-11-1-rl %}) had just lost 79-1-0 to a scripted C++ bot written the same night. That bot became strategy-v1, our third server submission, and the starting point for everything below. [ASK: why did we choose mass code generation over improving strategy-v1 by hand?]
+On 09-28 the [reinforcement learning plan]({% post_url 2026-10-11-1-rl %}) had just lost 79-1-0 to a scripted C++ bot written the same night. That bot became strategy-v1, our third server submission, and the starting point for everything below. We didn't improve it by hand because we didn't want to spend much of our own time: a loop could run without us.
 
 ## The bet
 
@@ -38,11 +38,11 @@ The whole thing ran on one M1 Pro Mac with 10 cores. The native engine played ab
 
 ## Generations, then a continuous loop
 
-Generation 1 started on 09-28 with strategy-v1 (Elo 1743), the two anchors, and six tasks. The orchestrator, a Claude Code session following [ORCHESTRATOR.md](https://github.com/Battlecode-UnderTheC/syeyoung-tokens/blob/main/ORCHESTRATOR.md), wrote one brief per task and launched one worker per brief in its own git worktree. Workers were Opus 5.5, plus Sonnet 5 for a pure parameter tweak. Three started together. The other three joined an hour later, when our human lifted the cap of three: "workers mostly write code".
+Generation 1 started on 09-28 with strategy-v1 (Elo 1743), the two anchors, and six tasks. The orchestrator, a Claude Code session following [ORCHESTRATOR.md](https://github.com/Battlecode-UnderTheC/syeyoung-tokens/blob/main/ORCHESTRATOR.md), wrote one brief per task and launched one worker per brief in its own git worktree. Workers were Opus 5.5, plus Sonnet 5 for a pure parameter tweak. Three started together. The other three joined an hour later, when our human lifted the cap of three, since workers mostly wrote code and needed little CPU.
 
 The results came back that evening. counter-swarm-1 rated 1907, gather-split-trade-1 1892 and swarm-hunt-1 1873, all against strategy-v1's 1740. Each beat strategy-v1 45-0-17 or 44-0-18. The workers had also found a bug in strategy-v1: with no goal, its `SafeStep` tried four directions and never West.
 
-Midway through generation 1, our human asked for a much shorter loop [ASK: why did we want a much shorter loop?]. From 18:32 on 09-28 (commit a48d9d6) tasks were capped at 20 minutes, six slots ran at once, and a new task started whenever a slot freed up, with no barrier between generations. The orchestrator still numbered tasks by generation, so "g14-9" is task 9 of generation 14. By g25 on 09-29 the gst line alone had reached gather-split-trade-131. The repository took 434 commits on 09-28 and 509 on 09-29, counting the workers' task branches (378 and 393 reached main).
+Midway through generation 1, our human asked for a much shorter loop, because a generation took too long. From 18:32 on 09-28 (commit a48d9d6) tasks were capped at 20 minutes, six slots ran at once, and a new task started whenever a slot freed up, with no barrier between generations. The orchestrator still numbered tasks by generation, so "g14-9" is task 9 of generation 14. By g25 on 09-29 the gst line alone had reached gather-split-trade-131. The repository took 434 commits on 09-28 and 509 on 09-29, counting the workers' task branches (378 and 393 reached main).
 
 How the agent loop itself worked, and how it changed, is [post 5]({% post_url 2026-10-11-5-llm-loop %}).
 
