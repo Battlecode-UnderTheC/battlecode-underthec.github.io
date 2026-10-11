@@ -1,7 +1,7 @@
-# tokenz-postmortem
+# battlecode-underthec.github.io
 
-Our postmortem of UNSW Battlecode 2026 (the dragons game), as a blog on GitHub Pages:
-https://battlecode-underthec.github.io/tokenz-postmortem/
+UnderTheC's blog on GitHub Pages:
+https://battlecode-underthec.github.io/
 
 GitHub Pages builds it with Jekyll on every push; nothing to build by hand.
 
@@ -14,8 +14,6 @@ Add `_posts/YYYY-MM-DD-slug.md`:
 layout: post
 title: "How we approached it"
 description: "One sentence for the index and the post's subtitle."
-series: "the postmortem"     # optional: shows "part N of ..."
-part: 1
 ---
 
 Markdown (GitHub-flavoured): tables, fenced code with highlighting, images in `assets/`.
@@ -29,4 +27,4 @@ links between them. Put images and videos under `assets/` and link them with
 
     bundle exec jekyll serve      # with the github-pages gem, or: docker run -p 4000:4000 -v $PWD:/srv/jekyll jekyll/jekyll jekyll serve
 
-then open http://localhost:4000/tokenz-postmortem/.
+then open http://localhost:4000/.

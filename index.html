@@ -1,26 +1,12 @@
 ---
 layout: default
 ---
-<section class="intro">
-  <h1>tokenz: a postmortem</h1>
-  <p>{{ site.description }}</p>
-  <p class="links"><a href="{{ site.links.arena }}">Browse the arena snapshot</a>: every game, bot and duel, with games re-run in your browser.</p>
-</section>
-<section class="posts">
-  {% if site.posts.size > 0 %}
-  <ol>
-    {% for post in site.posts reversed %}
-    <li>
-      <a href="{{ post.url | relative_url }}">
-        <span class="n">{{ forloop.index }}</span>
-        <span class="t">{{ post.title }}</span>
-        {% if post.description %}<span class="d">{{ post.description }}</span>{% endif %}
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
-      </a>
-    </li>
-    {% endfor %}
-  </ol>
-  {% else %}
-  <p class="empty">The posts are on their way.</p>
-  {% endif %}
-</section>
+<ol class="posts">
+  {% for post in site.posts reversed %}
+  <li>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+    {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+  </li>
+  {% endfor %}
+</ol>
