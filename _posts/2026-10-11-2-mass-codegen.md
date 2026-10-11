@@ -68,6 +68,11 @@ The sandbox evidence behind each was a handful of games. The league rating carri
 
 The first server battle went 5-5 against a trading swarm: no sonar, always `SPLIT 2`, 3-5-long dragons lunging 2-4 steps at our long ones. Our dragons spent 8.7% of their moves in idle loops, 75% of those orbiting portals. The second we lost 2-8 to a stronger version of the same shape that crossed portals 1,098 times and farmed portal-only food (709 pearls to our 8 on Trauma).
 
+<figure markdown="1">
+<img src="{{ '/assets/img/film-first-battle.webp' | relative_url }}" alt="Our champion dying head-on in the first server battle" loading="lazy">
+<figcaption markdown="span">The first server battle, on Autarky, rounds 390 to 395 (ours in cyan). Our 21-long champion meets a 5-long enemy head-on, both die, and its length is left on the board as pearls.</figcaption>
+</figure>
+
 That evening produced a portal fix (gst33 and its ports into the other lines) and a new kind of variant: clones of real opponents, starting with trading-swarm-1. The clones mattered because A/B tests against our own parents couldn't see these weaknesses at all.
 
 ## What the league got wrong
