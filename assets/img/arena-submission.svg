@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a8a8a"/></marker></defs>
+<rect x="20" y="30" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="80.0" y="53.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Upload</text>
+<text x="80.0" y="69.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">zip, parent,</text>
+<text x="80.0" y="85.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">note</text>
+<rect x="160" y="30" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="220.0" y="53.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Checks</text>
+<text x="220.0" y="69.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">zip, compile,</text>
+<text x="220.0" y="85.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">1 test game</text>
+<path d="M140 65 L160 65" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="300" y="30" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="360.0" y="53.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Draft</text>
+<text x="360.0" y="69.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">parent + top 3,</text>
+<text x="360.0" y="85.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">all draft maps</text>
+<path d="M280 65 L300 65" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="440" y="30" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="500.0" y="53.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Verdict</text>
+<text x="500.0" y="69.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">beats parent?</text>
+<text x="500.0" y="85.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">with 95% CI</text>
+<path d="M420 65 L440 65" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="580" y="30" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="640.0" y="53.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Promote</text>
+<text x="640.0" y="69.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">by the owner</text>
+<text x="640.0" y="85.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">or agent</text>
+<path d="M560 65 L580 65" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="580" y="170" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="640.0" y="193.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Placement</text>
+<text x="640.0" y="209.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">parent + top 5,</text>
+<text x="640.0" y="225.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">then everyone</text>
+<rect x="440" y="170" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="500.0" y="193.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Leaderboard</text>
+<text x="500.0" y="209.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">Bradley-Terry</text>
+<text x="500.0" y="225.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">rating</text>
+<path d="M580 205 L560 205" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="300" y="170" width="120" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="360.0" y="201.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Holdout</text>
+<text x="360.0" y="217.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">top 4 only</text>
+<path d="M440 205 L420 205" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<path d="M640 100 L640 170" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="20" y="170" width="260" height="70" rx="8" fill="none" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="150.0" y="193.0" text-anchor="middle" fill="#8a8a8a" font-weight="600">Server</text>
+<text x="150.0" y="209.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">auto-submit if #1 and it passes</text>
+<text x="150.0" y="225.0" text-anchor="middle" fill="#8a8a8a" font-size="11.5">the gate, or a force upload</text>
+<path d="M300 205 L280 205" fill="none" stroke="#8a8a8a" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="360" y="140" text-anchor="middle" fill="#8a8a8a" font-size="11.5">drafts are unranked; promoting retires the previous version</text>
+</svg>
