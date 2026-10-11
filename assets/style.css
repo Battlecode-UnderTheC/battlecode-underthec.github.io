@@ -1,4 +1,5 @@
 :root {
+  --warn-bg: #fff4e5; --warn-line: #f59e0b;
   --bg: #ffffff; --fg: #111111; --muted: #666666; --line: #e5e5e5; --code-bg: #f5f5f5; --accent: #0b57d0;
   --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -6,7 +7,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f0f10; --fg: #ececec; --muted: #9a9a9a; --line: #262628; --code-bg: #19191b; --accent: #8ab4f8;
+    --warn-bg: #2b2110; --warn-line: #d97706; --bg: #0f0f10; --fg: #ececec; --muted: #9a9a9a; --line: #262628; --code-bg: #19191b; --accent: #8ab4f8;
     color-scheme: dark;
   }
 }
@@ -56,3 +57,7 @@ pre code { background: none; padding: 0; font-size: inherit; }
 .pager small { color: var(--muted); margin: 0 6px; }
 .highlight .c, .highlight .c1, .highlight .cm { color: var(--muted); }
 @media (max-width: 640px) { body { font-size: 16px; } h1 { font-size: 26px; } }
+
+.post .body .callout { margin: 20px 0; padding: 14px 16px; border-radius: 6px; }
+.post .body .callout p { margin: 0; }
+.post .body .callout.warn { background: var(--warn-bg); border-left: 4px solid var(--warn-line); }
